@@ -34,9 +34,9 @@ export const WishlistDrawer: React.FC = () => {
         <div className="p-6 border-b border-[#E8E2D9] flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Heart className="w-5 h-5 fill-[#C0392B] text-[#C0392B]" />
-            <h3 className="font-serif-luxury text-xl font-medium tracking-wide">
+            <h2 className="font-serif-luxury text-xl font-medium tracking-wide">
               Saved Fragrances
-            </h3>
+            </h2>
             <span className="text-xs text-[#8A8075] font-mono tabular-nums">
               ({savedProducts.length})
             </span>
@@ -58,9 +58,9 @@ export const WishlistDrawer: React.FC = () => {
               <div className="w-16 h-16 rounded-full bg-[#F2ECE4] flex items-center justify-center mx-auto text-[#8C7335]">
                 <Heart className="w-8 h-8 stroke-[1.5]" />
               </div>
-              <h4 className="font-serif-luxury text-2xl text-[#141414]">
+              <h3 className="font-serif-luxury text-2xl text-[#141414]">
                 Your wishlist is empty
-              </h4>
+              </h3>
               <p className="text-xs text-[#736B63] max-w-xs mx-auto">
                 Save your favourite flacons while browsing our collections for quick access anytime.
               </p>
@@ -88,7 +88,10 @@ export const WishlistDrawer: React.FC = () => {
                   <img
                     src={product.image}
                     alt={product.name}
-                    referrerPolicy="no-referrer"
+                    width={64}
+                    height={80}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -96,15 +99,15 @@ export const WishlistDrawer: React.FC = () => {
                 {/* Details */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-1">
-                    <h5
+                    <h3
                       onClick={() => {
                         setWishlistOpen(false);
                         openQuickView(product);
                       }}
-                      className="font-serif-luxury text-base font-semibold text-[#141414] truncate cursor-pointer hover:text-[#9A7B2C]"
+                      className="font-serif-luxury text-base font-semibold text-[#141414] truncate cursor-pointer hover:text-[#785E19]"
                     >
                       {product.name}
-                    </h5>
+                    </h3>
                     <button
                       onClick={() => toggleWishlist(product.id)}
                       className="text-[#9E958A] hover:text-[#C0392B] p-1 transition-colors"

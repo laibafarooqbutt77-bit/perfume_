@@ -66,7 +66,10 @@ export const ProductDetailsModal: React.FC = () => {
             <img
               src={quickViewProduct.image}
               alt={quickViewProduct.name}
-              referrerPolicy="no-referrer"
+              width={720}
+              height={538}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute top-4 left-4 bg-[#141414]/80 backdrop-blur-xs text-[#E8DCC4] text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-xs border border-[#3E3830]">
@@ -104,9 +107,9 @@ export const ProductDetailsModal: React.FC = () => {
 
             {/* Available Bottle Sizes Selector */}
             <div className="space-y-2">
-              <label className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block">
+              <span className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block">
                 Select Flacon Volume
-              </label>
+              </span>
               <div className="grid grid-cols-3 gap-2">
                 {quickViewProduct.sizes.map((s) => (
                   <button

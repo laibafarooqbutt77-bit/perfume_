@@ -28,8 +28,8 @@ export const HeroSection: React.FC = () => {
           {/* Left Column: Editorial Headline & Actions */}
           <div className="lg:col-span-6 flex flex-col justify-center space-y-6 md:space-y-8">
             {/* Zero-Pill Unboxed Clean Kicker */}
-            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#8C7335] font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-[#785E19]" />
               <span>Haute Parfumerie & Botanical Art</span>
               <span aria-hidden="true">·</span>
               <span>Paris & Lahore</span>
@@ -39,14 +39,14 @@ export const HeroSection: React.FC = () => {
             <div className="space-y-4">
               <h1 className="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#141414] leading-[1.08] [text-wrap:balance]">
                 Discover Your <br />
-                <span className="italic font-normal text-[#9A7B2C]">Signature Scent</span>
+                <span className="italic font-normal text-[#785E19]">Signature Scent</span>
               </h1>
-              <p className="text-lg md:text-xl text-[#5C554E] font-serif italic max-w-lg">
+              <p className="text-lg md:text-xl text-[#4E4741] font-serif italic max-w-lg">
                 “An unforgettable fragrance. A lasting impression.”
               </p>
             </div>
 
-            <p className="text-sm md:text-base text-[#6B635B] leading-relaxed max-w-xl font-normal">
+            <p className="text-sm md:text-base text-[#554E47] leading-relaxed max-w-xl font-normal">
               Immerse yourself in artisanal extraits de parfum, where sustainably sourced Cambodian agarwood,
               Grasse Damask roses, and warm golden resins are hand-blended into flacons of liquid elegance.
             </p>
@@ -63,9 +63,9 @@ export const HeroSection: React.FC = () => {
 
               <button
                 onClick={handleBestSellers}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent hover:bg-[#EFE9DF]/60 text-[#141414] border border-[#C5B8A5] text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent hover:bg-[#EFE9DF]/60 text-[#141414] border border-[#B8AA96] text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-300"
               >
-                <Compass className="w-4 h-4 text-[#8C7335]" />
+                <Compass className="w-4 h-4 text-[#6E561E]" />
                 <span>Shop Best Sellers</span>
               </button>
             </div>
@@ -76,7 +76,7 @@ export const HeroSection: React.FC = () => {
                 <p className="font-serif-luxury text-xl md:text-2xl font-semibold text-[#141414] tabular-nums">
                   30%
                 </p>
-                <p className="text-[11px] uppercase tracking-wider text-[#736B63] mt-0.5">
+                <p className="text-[11px] uppercase tracking-wider text-[#5C544D] mt-0.5">
                   Extrait Concentration
                 </p>
               </div>
@@ -84,7 +84,7 @@ export const HeroSection: React.FC = () => {
                 <p className="font-serif-luxury text-xl md:text-2xl font-semibold text-[#141414] tabular-nums">
                   14+ Hrs
                 </p>
-                <p className="text-[11px] uppercase tracking-wider text-[#736B63] mt-0.5">
+                <p className="text-[11px] uppercase tracking-wider text-[#5C544D] mt-0.5">
                   Lasting Sillage
                 </p>
               </div>
@@ -92,7 +92,7 @@ export const HeroSection: React.FC = () => {
                 <p className="font-serif-luxury text-xl md:text-2xl font-semibold text-[#141414] tabular-nums">
                   ₨ 0
                 </p>
-                <p className="text-[11px] uppercase tracking-wider text-[#736B63] mt-0.5">
+                <p className="text-[11px] uppercase tracking-wider text-[#5C544D] mt-0.5">
                   Delivery over ₨ 15k
                 </p>
               </div>
@@ -109,25 +109,29 @@ export const HeroSection: React.FC = () => {
                 <img
                   src={IMAGES.hero}
                   alt="Maison d'Or Aurélia Signature Flacon on Dark Emperador Marble"
-                  referrerPolicy="no-referrer"
+                  width={1200}
+                  height={670}
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="sync"
                   className="w-full h-full object-cover object-center img-zoom"
                 />
 
                 {/* Subtle scrim overlay with product label */}
-                <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex items-end justify-between">
+                <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-end justify-between">
                   <div>
                     <span className="text-[10px] uppercase tracking-[0.2em] text-[#E6CA85] font-semibold">
                       Featured Reserve
                     </span>
-                    <h3 className="font-serif-luxury text-xl md:text-2xl text-white font-medium">
+                    <p className="font-serif-luxury text-xl md:text-2xl text-white font-medium">
                       Aurélia Grand Cru
-                    </h3>
-                    <p className="text-xs text-white/75 mt-0.5">
+                    </p>
+                    <p className="text-xs text-[#E8E2D9] mt-0.5">
                       Warm Amber · Saffron · Cambodian Oud
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="text-[11px] uppercase tracking-wider text-white/60 block">Price</span>
+                    <span className="text-[11px] uppercase tracking-wider text-[#D4C8B8] block">Price</span>
                     <span className="text-sm font-semibold text-[#E6CA85] font-mono tabular-nums">
                       ₨ 28,500
                     </span>

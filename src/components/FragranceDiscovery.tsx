@@ -74,7 +74,7 @@ export const FragranceDiscovery: React.FC = () => {
           <h3 className="font-serif-luxury text-2xl text-[#E8DCC4] mb-1 font-medium">
             {activeFamily} Accord
           </h3>
-          <p className="text-xs md:text-sm text-[#A89E92] font-light">
+          <p className="text-xs md:text-sm text-[#C2B9AD] font-normal">
             {FRAGRANCE_NOTES_CATEGORIES.find(c => c.key === activeFamily)?.description}
           </p>
         </div>
@@ -90,12 +90,15 @@ export const FragranceDiscovery: React.FC = () => {
                 <img
                   src={perfume.image}
                   alt={perfume.name}
-                  referrerPolicy="no-referrer"
+                  width={720}
+                  height={538}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center img-zoom group-hover:scale-105 transition-transform duration-500"
                 />
                 <button
                   onClick={() => openQuickView(perfume)}
-                  className="absolute bottom-3 right-3 p-2 bg-black/60 hover:bg-[#D4AF37] hover:text-[#141414] text-white rounded-full transition-colors backdrop-blur-xs"
+                  className="absolute bottom-3 right-3 p-2 bg-black/75 hover:bg-[#D4AF37] hover:text-[#141414] text-white rounded-full transition-colors backdrop-blur-xs"
                   aria-label={`Quick view ${perfume.name}`}
                 >
                   <Eye className="w-4 h-4" />
@@ -104,14 +107,14 @@ export const FragranceDiscovery: React.FC = () => {
 
               <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                 <div>
-                  <div className="flex items-center justify-between text-xs text-[#8C7E72] uppercase tracking-wider mb-1">
+                  <div className="flex items-center justify-between text-xs text-[#C2B9AD] uppercase tracking-wider mb-1">
                     <span>{perfume.subtitle}</span>
-                    <span className="font-mono tabular-nums text-[#D4AF37]">★ {perfume.rating.toFixed(1)}</span>
+                    <span className="font-mono tabular-nums text-[#E6CA85]">★ {perfume.rating.toFixed(1)}</span>
                   </div>
                   <h4 className="font-serif-luxury text-xl md:text-2xl text-white font-medium">
                     {perfume.name}
                   </h4>
-                  <p className="text-xs text-[#9E9387] mt-1 line-clamp-2 font-light">
+                  <p className="text-xs text-[#C2B9AD] mt-1 line-clamp-2 font-normal">
                     {perfume.description}
                   </p>
                 </div>

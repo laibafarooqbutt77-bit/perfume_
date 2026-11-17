@@ -52,8 +52,12 @@ export const NewsletterSection: React.FC = () => {
           <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-3">
             <div className="flex flex-col sm:flex-row items-stretch gap-2">
               <div className="relative flex-1">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A]" />
+                <label htmlFor="newsletter-email" className="sr-only">
+                  Email address
+                </label>
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#B8AFA5]" />
                 <input
+                  id="newsletter-email"
                   type="email"
                   value={email}
                   onChange={(e) => {
@@ -61,7 +65,7 @@ export const NewsletterSection: React.FC = () => {
                     if (error) setError('');
                   }}
                   placeholder="Enter your email address..."
-                  className="w-full pl-10 pr-4 py-3 bg-[#1C1A17] border border-[#3E3830] text-white text-xs placeholder-[#7E746A] focus:outline-hidden focus:border-[#D4AF37] rounded-xs transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-[#1C1A17] border border-[#3E3830] text-white text-xs placeholder-[#ACA296] focus:outline-hidden focus:border-[#D4AF37] rounded-xs transition-colors"
                 />
               </div>
 
@@ -75,10 +79,10 @@ export const NewsletterSection: React.FC = () => {
             </div>
 
             {error && (
-              <p className="text-xs text-[#E57373] text-left">{error}</p>
+              <p className="text-xs text-[#F28B82] text-left">{error}</p>
             )}
 
-            <p className="text-[11px] text-[#736B63] text-center">
+            <p className="text-[11px] text-[#B8AFA5] text-center">
               * Frontend demonstration. No promotional spam will be delivered.
             </p>
           </form>

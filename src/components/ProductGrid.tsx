@@ -39,14 +39,14 @@ export const ProductGrid: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Title */}
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-          <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.25em] text-[#8C7335] font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+          <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-[#785E19]" />
             <span>The Permanent Collection</span>
           </div>
           <h2 className="font-serif-luxury text-3xl md:text-5xl text-[#141414] font-medium tracking-tight">
             Artisanal Flacons
           </h2>
-          <p className="text-sm md:text-base text-[#6B635B] font-light">
+          <p className="text-sm md:text-base text-[#554E47] font-normal">
             Every bottle is hand-poured in limited runs, numbered, and macerated for optimal sillage and longevity.
           </p>
         </div>
@@ -56,18 +56,22 @@ export const ProductGrid: React.FC = () => {
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
             {/* Search Input */}
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A]" />
+              <label htmlFor="catalog-search" className="sr-only">
+                Search fragrances by name or notes
+              </label>
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#5E564E]" />
               <input
+                id="catalog-search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by scent name, notes (e.g. saffron, rose, oud)..."
-                className="w-full pl-10 pr-4 py-2.5 bg-[#FAF8F5] border border-[#E0D7CC] rounded-xs text-xs md:text-sm text-[#141414] placeholder-[#9E958A] focus:outline-hidden focus:border-[#D4AF37] transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#FAF8F5] border border-[#D8CFC3] rounded-xs text-xs md:text-sm text-[#141414] placeholder-[#655D55] focus:outline-hidden focus:border-[#785E19] transition-colors"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#8C827A] hover:text-[#141414]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#5E564E] hover:text-[#141414]"
                 >
                   Clear
                 </button>
@@ -76,14 +80,18 @@ export const ProductGrid: React.FC = () => {
 
             {/* Sort Dropdown */}
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 text-xs text-[#736B63] uppercase tracking-wider font-medium shrink-0">
+              <label
+                htmlFor="sort-perfumes"
+                className="flex items-center gap-2 text-xs text-[#554E47] uppercase tracking-wider font-medium shrink-0 cursor-pointer"
+              >
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 <span>Sort By:</span>
-              </div>
+              </label>
               <select
+                id="sort-perfumes"
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-[#FAF8F5] border border-[#E0D7CC] px-3 py-2.5 rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#D4AF37] cursor-pointer"
+                onChange={(e) => setSortBy(e.target.value as 'popular' | 'price-low' | 'price-high' | 'rating' | 'newest')}
+                className="bg-[#FAF8F5] border border-[#D8CFC3] px-3 py-2.5 rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#785E19] cursor-pointer"
               >
                 <option value="popular">Most Popular</option>
                 <option value="price-low">Price: Low to High</option>
@@ -105,7 +113,7 @@ export const ProductGrid: React.FC = () => {
                   className={`px-3.5 py-1.5 text-xs uppercase tracking-wider font-medium rounded-xs transition-all ${
                     isSelected
                       ? 'bg-[#141414] text-[#FAF8F5] shadow-xs'
-                      : 'bg-[#FAF8F5] text-[#5C554E] hover:bg-[#EFE9DF] hover:text-[#141414]'
+                      : 'bg-[#FAF8F5] text-[#4E4741] hover:bg-[#EFE9DF] hover:text-[#141414]'
                   }`}
                 >
                   {cat.label}
@@ -116,7 +124,7 @@ export const ProductGrid: React.FC = () => {
         </div>
 
         {/* Results Counter and Active Filter Pill Tags */}
-        <div className="flex items-center justify-between mb-8 text-xs text-[#736B63]">
+        <div className="flex items-center justify-between mb-8 text-xs text-[#554E47]">
           <div className="flex items-center gap-2">
             <span className="font-medium text-[#141414] tabular-nums font-mono">
               {filteredProducts.length}
@@ -125,14 +133,14 @@ export const ProductGrid: React.FC = () => {
             {(selectedCategory !== 'all' || selectedFamily !== 'All' || searchQuery !== '') && (
               <button
                 onClick={handleResetFilters}
-                className="ml-3 inline-flex items-center gap-1 text-[#8C7335] hover:underline cursor-pointer"
+                className="ml-3 inline-flex items-center gap-1 text-[#6E561E] hover:underline cursor-pointer"
               >
                 <RefreshCw className="w-3 h-3" />
                 <span>Reset all filters</span>
               </button>
             )}
           </div>
-          <span className="text-[11px] uppercase tracking-wider text-[#9E958A] hidden sm:inline">
+          <span className="text-[11px] uppercase tracking-wider text-[#5E564E] hidden sm:inline">
             Prices in PKR (₨) · Authentic Ingredients
           </span>
         </div>
@@ -147,16 +155,16 @@ export const ProductGrid: React.FC = () => {
         ) : (
           /* Empty State */
           <div className="text-center py-20 bg-white border border-[#E8E2D9] rounded-lg p-8 space-y-4">
-            <div className="w-12 h-12 mx-auto rounded-full bg-[#FAF8F5] flex items-center justify-center text-[#8C7335]">
+            <div className="w-12 h-12 mx-auto rounded-full bg-[#FAF8F5] flex items-center justify-center text-[#6E561E]">
               <Search className="w-6 h-6" />
             </div>
             <h3 className="font-serif-luxury text-2xl text-[#141414]">No Fragrances Found</h3>
-            <p className="text-sm text-[#736B63] max-w-md mx-auto">
+            <p className="text-sm text-[#5C544D] max-w-md mx-auto">
               We couldn’t find any scent matching “{searchQuery}” in this selection. Try adjusting your search keywords or clearing your filters.
             </p>
             <button
               onClick={handleResetFilters}
-              className="px-6 py-2.5 bg-[#141414] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider hover:bg-[#B89626] transition-colors"
+              className="px-6 py-2.5 bg-[#141414] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider hover:bg-[#785E19] transition-colors"
             >
               Reset Filters
             </button>

@@ -155,7 +155,11 @@ function FormattedMessageText({ text }: { text: string }) {
   );
 }
 
-export const ChatAssistant: React.FC = () => {
+interface ChatAssistantProps {
+  initialOpen?: boolean;
+}
+
+export const ChatAssistant: React.FC<ChatAssistantProps> = ({ initialOpen = false }) => {
   const {
     cart,
     cartCount,
@@ -178,7 +182,7 @@ export const ChatAssistant: React.FC = () => {
     formatPrice
   } = useShop();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(initialOpen);
   const [showProfilePanel, setShowProfilePanel] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     safeLoadChatHistory(customerProfile.fullName)
@@ -444,9 +448,9 @@ export const ChatAssistant: React.FC = () => {
                   <Sparkles className="w-4 h-4 text-[#D4AF37]" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-serif-luxury text-lg font-medium tracking-wide text-white leading-tight truncate">
+                  <h2 className="font-serif-luxury text-lg font-medium tracking-wide text-white leading-tight truncate">
                     Aurèle · Concierge
-                  </h3>
+                  </h2>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-[#C5B8A5] truncate">
                     {customerProfile.fullName
                       ? `Assisting ${customerProfile.fullName}`
@@ -491,16 +495,16 @@ export const ChatAssistant: React.FC = () => {
               <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-5 bg-[#FAF8F5]">
                 <div className="flex items-center justify-between border-b border-[#E8E2D9] pb-3">
                   <div>
-                    <h4 className="font-serif-luxury text-xl font-medium text-[#141414]">
+                    <h3 className="font-serif-luxury text-xl font-medium text-[#141414]">
                       Your Boutique Profile
-                    </h4>
-                    <p className="text-[11px] text-[#736B63] font-mono">
+                    </h3>
+                    <p className="text-[11px] text-[#5C544D] font-mono">
                       Customer ID: {customerProfile.customerId}
                     </p>
                   </div>
                   <button
                     onClick={() => setShowProfilePanel(false)}
-                    className="text-xs font-medium text-[#8C7335] hover:underline"
+                    className="text-xs font-medium text-[#6E561E] hover:underline"
                   >
                     Back to Chat
                   </button>
@@ -508,39 +512,51 @@ export const ChatAssistant: React.FC = () => {
 
                 <form onSubmit={handleSaveProfile} className="space-y-3 bg-white p-4 rounded-lg border border-[#E8E2D9]">
                   <div>
-                    <label className="text-[10px] uppercase tracking-wider font-semibold text-[#736B63] block mb-1">
+                    <label
+                      htmlFor="profile-fullName"
+                      className="text-[10px] uppercase tracking-wider font-semibold text-[#5C544D] block mb-1"
+                    >
                       Full Name
                     </label>
                     <input
+                      id="profile-fullName"
                       type="text"
                       value={profileForm.fullName}
                       onChange={e => setProfileForm({ ...profileForm, fullName: e.target.value })}
                       placeholder="e.g. Ayesha Khan"
-                      className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-2.5">
                     <div>
-                      <label className="text-[10px] uppercase tracking-wider font-semibold text-[#736B63] block mb-1">
+                      <label
+                        htmlFor="profile-phone"
+                        className="text-[10px] uppercase tracking-wider font-semibold text-[#5C544D] block mb-1"
+                      >
                         Contact Number
                       </label>
                       <input
+                        id="profile-phone"
                         type="text"
                         value={profileForm.phone}
                         onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
                         placeholder="0300 1234567"
-                        className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                        className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] uppercase tracking-wider font-semibold text-[#736B63] block mb-1">
+                      <label
+                        htmlFor="profile-city"
+                        className="text-[10px] uppercase tracking-wider font-semibold text-[#5C544D] block mb-1"
+                      >
                         City
                       </label>
                       <select
+                        id="profile-city"
                         value={profileForm.city}
                         onChange={e => setProfileForm({ ...profileForm, city: e.target.value })}
-                        className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                        className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                       >
                         {PAKISTAN_CITIES.map(c => (
                           <option key={c} value={c}>
@@ -552,28 +568,36 @@ export const ChatAssistant: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="text-[10px] uppercase tracking-wider font-semibold text-[#736B63] block mb-1">
+                    <label
+                      htmlFor="profile-email"
+                      className="text-[10px] uppercase tracking-wider font-semibold text-[#5C544D] block mb-1"
+                    >
                       Email Address
                     </label>
                     <input
+                      id="profile-email"
                       type="email"
                       value={profileForm.email}
                       onChange={e => setProfileForm({ ...profileForm, email: e.target.value })}
                       placeholder="name@example.com"
-                      className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[10px] uppercase tracking-wider font-semibold text-[#736B63] block mb-1">
+                    <label
+                      htmlFor="profile-address"
+                      className="text-[10px] uppercase tracking-wider font-semibold text-[#5C544D] block mb-1"
+                    >
                       Delivery Address
                     </label>
                     <input
+                      id="profile-address"
                       type="text"
                       value={profileForm.address}
                       onChange={e => setProfileForm({ ...profileForm, address: e.target.value })}
                       placeholder="House #, Street, Sector / Area"
-                      className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     />
                   </div>
 
@@ -594,9 +618,9 @@ export const ChatAssistant: React.FC = () => {
 
                 {/* Saved Order History */}
                 <div className="space-y-2.5">
-                  <h5 className="text-xs uppercase tracking-wider font-semibold text-[#8C7335]">
+                  <h4 className="text-xs uppercase tracking-wider font-semibold text-[#6E561E]">
                     Saved Order History ({orderHistory.length})
-                  </h5>
+                  </h4>
                   {orderHistory.length === 0 ? (
                     <p className="text-xs text-[#736B63] bg-white p-4 rounded-lg border border-[#E8E2D9]">
                       No orders placed in this browser yet. You can ask Aurèle to help you choose and order a fragrance!
@@ -696,19 +720,22 @@ export const ChatAssistant: React.FC = () => {
                                   <img
                                     src={prod.image}
                                     alt={prod.name}
-                                    referrerPolicy="no-referrer"
+                                    width={64}
+                                    height={80}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover"
                                   />
                                 </div>
                                 <div className="flex-1 min-w-0 flex flex-col justify-between">
                                   <div>
                                     <div className="flex items-center justify-between gap-1">
-                                      <h5
+                                      <h3
                                         onClick={() => openQuickView(prod)}
-                                        className="font-serif-luxury text-base font-semibold text-[#141414] truncate cursor-pointer hover:text-[#9A7B2C]"
+                                        className="font-serif-luxury text-base font-semibold text-[#141414] truncate cursor-pointer hover:text-[#785E19]"
                                       >
                                         {prod.name}
-                                      </h5>
+                                      </h3>
                                       <span className="flex items-center text-[11px] font-mono text-[#141414] shrink-0">
                                         <Star className="w-3 h-3 fill-[#D4AF37] text-[#D4AF37] mr-0.5" />
                                         {prod.rating.toFixed(1)}
@@ -792,14 +819,17 @@ export const ChatAssistant: React.FC = () => {
                                   <img
                                     src={p.image}
                                     alt={p.name}
-                                    referrerPolicy="no-referrer"
+                                    width={200}
+                                    height={150}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover"
                                   />
                                 </div>
                                 <div>
-                                  <h6 className="font-serif-luxury text-sm font-semibold text-[#141414]">
+                                  <h3 className="font-serif-luxury text-sm font-semibold text-[#141414]">
                                     {p.name}
-                                  </h6>
+                                  </h3>
                                   <p className="font-mono font-bold text-[#9A7B2C] tabular-nums">
                                     {formatPrice(p.price)}
                                   </p>
@@ -1066,14 +1096,18 @@ export const ChatAssistant: React.FC = () => {
                   }}
                   className="p-3 bg-white border-t border-[#E8E2D9] flex items-center gap-2 shrink-0"
                 >
+                  <label htmlFor="chat-message-input" className="sr-only">
+                    Message Aurèle Fragrance Concierge
+                  </label>
                   <input
+                    id="chat-message-input"
                     ref={inputRef}
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Ask for scents, add to bag, or place an order..."
                     disabled={isLoading}
-                    className="flex-1 px-3.5 py-2.5 bg-[#FAF8F5] border border-[#D9D1C5] rounded-lg text-xs sm:text-sm text-[#141414] placeholder-[#8C827A] focus:outline-hidden focus:border-[#D4AF37] disabled:opacity-60"
+                    className="flex-1 px-3.5 py-2.5 bg-[#FAF8F5] border border-[#D9D1C5] rounded-lg text-xs sm:text-sm text-[#141414] placeholder-[#5E564E] focus:outline-hidden focus:border-[#785E19] disabled:opacity-60"
                   />
                   <button
                     type="submit"

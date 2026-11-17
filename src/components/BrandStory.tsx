@@ -13,10 +13,13 @@ export const BrandStory: React.FC = () => {
               <img
                 src={IMAGES.atelier}
                 alt="Master Perfumer composing bespoke formulas in Parisian atelier"
-                referrerPolicy="no-referrer"
+                width={1200}
+                height={670}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-center img-zoom"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[#E6CA85] font-semibold">
                   Maison d’Or Archives
@@ -24,7 +27,7 @@ export const BrandStory: React.FC = () => {
                 <p className="font-serif-luxury text-lg italic text-[#F5EFEB] mt-1">
                   “Perfume is silence speaking through time and emotion.”
                 </p>
-                <p className="text-[11px] text-[#C5B8A5] mt-0.5">
+                <p className="text-[11px] text-[#D4C8B8] mt-0.5">
                   Jean-Luc Mercier, Master Nose & Olfactory Architect
                 </p>
               </div>
@@ -33,8 +36,8 @@ export const BrandStory: React.FC = () => {
 
           {/* Right Column: Editorial Craftsmanship Prose */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#8C7335] font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-[#785E19]" />
               <span>Haute Parfumerie Heritage</span>
             </div>
 
@@ -42,7 +45,7 @@ export const BrandStory: React.FC = () => {
               The Sacred Alchemy of Scent & Memory
             </h2>
 
-            <div className="space-y-4 text-sm md:text-base text-[#5C554E] leading-relaxed font-light">
+            <div className="space-y-4 text-sm md:text-base text-[#4E4741] leading-relaxed font-normal">
               <p>
                 Founded upon the belief that fragrance is an intimate extension of one’s identity,
                 <strong className="text-[#141414] font-medium"> Maison d’Or</strong> bridges the venerated
@@ -62,37 +65,37 @@ export const BrandStory: React.FC = () => {
             {/* 3 Pillars of Distinction */}
             <div className="pt-6 border-t border-[#EAE3D9] grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="space-y-2">
-                <div className="w-8 h-8 rounded-full bg-[#EFE9DF] flex items-center justify-center text-[#8C7335]">
+                <div className="w-8 h-8 rounded-full bg-[#EFE9DF] flex items-center justify-center text-[#6E561E]">
                   <Droplets className="w-4 h-4" />
                 </div>
-                <h4 className="font-serif-luxury text-lg text-[#141414] font-semibold">
+                <h3 className="font-serif-luxury text-lg text-[#141414] font-semibold">
                   Pure Extracts
-                </h4>
-                <p className="text-xs text-[#736B63] font-light leading-relaxed">
+                </h3>
+                <p className="text-xs text-[#554E47] font-normal leading-relaxed">
                   Up to 32% essential fragrance concentration for unmatched sillage.
                 </p>
               </div>
 
               <div className="space-y-2">
-                <div className="w-8 h-8 rounded-full bg-[#EFE9DF] flex items-center justify-center text-[#8C7335]">
+                <div className="w-8 h-8 rounded-full bg-[#EFE9DF] flex items-center justify-center text-[#6E561E]">
                   <Feather className="w-4 h-4" />
                 </div>
-                <h4 className="font-serif-luxury text-lg text-[#141414] font-semibold">
+                <h3 className="font-serif-luxury text-lg text-[#141414] font-semibold">
                   Hand-Poured
-                </h4>
-                <p className="text-xs text-[#736B63] font-light leading-relaxed">
+                </h3>
+                <p className="text-xs text-[#554E47] font-normal leading-relaxed">
                   Numbered bottles sealed with weighted metallic caps and gold collars.
                 </p>
               </div>
 
               <div className="space-y-2">
-                <div className="w-8 h-8 rounded-full bg-[#EFE9DF] flex items-center justify-center text-[#8C7335]">
+                <div className="w-8 h-8 rounded-full bg-[#EFE9DF] flex items-center justify-center text-[#6E561E]">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
-                <h4 className="font-serif-luxury text-lg text-[#141414] font-semibold">
+                <h3 className="font-serif-luxury text-lg text-[#141414] font-semibold">
                   Ethical Harvest
-                </h4>
-                <p className="text-xs text-[#736B63] font-light leading-relaxed">
+                </h3>
+                <p className="text-xs text-[#554E47] font-normal leading-relaxed">
                   Cruelty-free, sustainably harvested woods, and fair-trade florals.
                 </p>
               </div>

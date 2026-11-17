@@ -43,7 +43,7 @@ export const AnnouncementBar: React.FC = () => {
         <button
           onClick={() => setVisible(false)}
           aria-label="Dismiss banner"
-          className="text-[#999] hover:text-[#FAF8F5] p-1 transition-colors shrink-0"
+          className="text-[#C7BEB2] hover:text-[#FAF8F5] p-1 transition-colors shrink-0"
         >
           <X className="w-3.5 h-3.5" />
         </button>

@@ -58,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSearchClick }) => {
           <span className="font-serif-luxury text-2xl md:text-3xl font-medium tracking-[0.2em] text-[#141414] group-hover:text-[#B89626] transition-colors">
             MAISON D’OR
           </span>
-          <span className="text-[9px] uppercase tracking-[0.35em] text-[#8C827A] -mt-1 font-sans">
+          <span className="text-[9px] uppercase tracking-[0.35em] text-[#5E564E] -mt-1 font-sans">
             Haute Parfumerie · Paris
           </span>
         </a>
@@ -102,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSearchClick }) => {
           </a>
           <a
             href="#scent-finder"
-            className="hover:text-[#141414] hover:underline underline-offset-8 transition-colors whitespace-nowrap shrink-0 text-[#8C7335]"
+            className="hover:text-[#141414] hover:underline underline-offset-8 transition-colors whitespace-nowrap shrink-0 text-[#6E561E]"
           >
             Scent Finder
           </a>
@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSearchClick }) => {
           >
             <Heart className="w-5 h-5 stroke-[1.75]" />
             {wishlist.length > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-[#B89626] text-white text-[10px] font-semibold flex items-center justify-center rounded-full tabular-nums">
+              <span className="absolute top-1 right-1 w-4 h-4 bg-[#D4AF37] text-[#141414] text-[10px] font-bold flex items-center justify-center rounded-full tabular-nums">
                 {wishlist.length}
               </span>
             )}
@@ -205,7 +205,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSearchClick }) => {
             <a
               href="#scent-finder"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-[#EFE9DF] hover:text-[#B89626] text-[#8C7335]"
+              className="py-2 border-b border-[#EFE9DF] hover:text-[#6E561E] text-[#6E561E]"
             >
               Interactive Scent Finder
             </a>

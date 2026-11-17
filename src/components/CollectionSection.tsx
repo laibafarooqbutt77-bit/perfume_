@@ -22,14 +22,14 @@ export const CollectionSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <div className="text-xs uppercase tracking-[0.25em] text-[#8C7335] font-semibold mb-2">
+            <div className="text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold mb-2">
               Curated Olfactory Realms
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-4xl text-[#141414] font-medium tracking-tight">
               Shop by Collection
             </h2>
           </div>
-          <p className="text-sm text-[#6B635B] max-w-md font-normal">
+          <p className="text-sm text-[#554E47] max-w-md font-normal">
             From smoky woods and nocturnal leathers to sun-warmed Centifolia rose petals and rare aged agarwood flacons.
           </p>
         </div>
@@ -46,7 +46,10 @@ export const CollectionSection: React.FC = () => {
               <img
                 src={col.image}
                 alt={col.name}
-                referrerPolicy="no-referrer"
+                width={720}
+                height={538}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center img-zoom group-hover:scale-105 transition-transform duration-700 brightness-95 group-hover:brightness-90"
               />
 
@@ -55,7 +58,7 @@ export const CollectionSection: React.FC = () => {
 
               {/* Card Content */}
               <div className="relative z-10 space-y-1.5">
-                <div className="flex items-center justify-between text-[#D4AF37]">
+                <div className="flex items-center justify-between text-[#E6CA85]">
                   <span className="text-[11px] uppercase tracking-[0.2em] font-semibold">
                     {col.itemCount} Fragrances
                   </span>

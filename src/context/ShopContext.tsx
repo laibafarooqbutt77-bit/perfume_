@@ -197,14 +197,22 @@ function safeParseOrderHistory(): OrderRecord[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (o): o is OrderRecord =>
-        o &&
-        typeof o === 'object' &&
-        typeof o.orderNumber === 'string' &&
-        Array.isArray(o.items) &&
-        typeof o.total === 'number'
-    );
+    return parsed
+      .filter(
+        (o): o is OrderRecord =>
+          o &&
+          typeof o === 'object' &&
+          typeof o.orderNumber === 'string' &&
+          Array.isArray(o.items) &&
+          typeof o.total === 'number'
+      )
+      .map(o => ({
+        ...o,
+        items: o.items.map(item => {
+          const catalogProduct = PERFUMES_DATA.find(p => p.id === item?.product?.id);
+          return catalogProduct ? { ...item, product: catalogProduct } : item;
+        })
+      }));
   } catch {
     return [];
   }

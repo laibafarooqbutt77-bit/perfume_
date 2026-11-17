@@ -45,7 +45,7 @@ export const Toast: React.FC = () => {
         <button
           onClick={hideToast}
           aria-label="Close notification"
-          className="text-[#8C827A] hover:text-white transition-colors"
+          className="text-[#C7BEB2] hover:text-white transition-colors"
         >
           <X className="w-4 h-4" />
         </button>

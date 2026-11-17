@@ -197,68 +197,84 @@ export const CheckoutModal: React.FC = () => {
                 <span className="text-xs uppercase tracking-[0.25em] text-[#8C7335] font-semibold">
                   Haute Parfumerie Concierge
                 </span>
-                <h3 className="font-serif-luxury text-2xl sm:text-3xl font-medium text-[#141414]">
+                <h2 className="font-serif-luxury text-2xl sm:text-3xl font-medium text-[#141414]">
                   Express Delivery
-                </h3>
+                </h2>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1">
+                    <label
+                      htmlFor="checkout-fullName"
+                      className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1"
+                    >
                       Full Name *
                     </label>
                     <input
+                      id="checkout-fullName"
                       type="text"
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleInputChange}
                       placeholder="e.g. Tariq Mansoor"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     />
                     {errors.fullName && <p className="text-xs text-[#C0392B] mt-1">{errors.fullName}</p>}
                   </div>
 
                   <div>
-                    <label className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1">
+                    <label
+                      htmlFor="checkout-email"
+                      className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1"
+                    >
                       Email (Optional)
                     </label>
                     <input
+                      id="checkout-email"
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="name@example.com"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1">
+                    <label
+                      htmlFor="checkout-phone"
+                      className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1"
+                    >
                       Phone Number *
                     </label>
                     <input
+                      id="checkout-phone"
                       type="text"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="0300 1234567"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     />
                     {errors.phone && <p className="text-xs text-[#C0392B] mt-1">{errors.phone}</p>}
                   </div>
 
                   <div>
-                    <label className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1">
+                    <label
+                      htmlFor="checkout-city"
+                      className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1"
+                    >
                       City *
                     </label>
                     <select
+                      id="checkout-city"
                       name="city"
                       value={formData.city}
                       onChange={handleInputChange}
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     >
                       {PAKISTAN_CITIES.map(c => (
                         <option key={c} value={c}>{c}</option>
@@ -268,24 +284,28 @@ export const CheckoutModal: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1">
+                  <label
+                    htmlFor="checkout-address"
+                    className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-1"
+                  >
                     Street & House Address *
                   </label>
                   <input
+                    id="checkout-address"
                     type="text"
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="House / Apartment #, Street, Sector or Area"
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#D9D1C5] rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                   />
                   {errors.address && <p className="text-xs text-[#C0392B] mt-1">{errors.address}</p>}
                 </div>
 
-                <div className="pt-2">
-                  <label className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-2">
+                <fieldset className="pt-2">
+                  <legend className="text-[11px] uppercase tracking-wider font-semibold text-[#141414] block mb-2">
                     Payment Method
-                  </label>
+                  </legend>
                   <div className="space-y-2">
                     <label
                       className={`flex items-center gap-3 p-3 rounded-xs border cursor-pointer transition-colors ${
@@ -304,7 +324,7 @@ export const CheckoutModal: React.FC = () => {
                       />
                       <div className="text-xs">
                         <span className="font-semibold text-[#141414] block">Cash on Delivery (COD)</span>
-                        <span className="text-[#736B63]">Pay upon receiving your sealed fragrance package</span>
+                        <span className="text-[#5C544D]">Pay upon receiving your sealed fragrance package</span>
                       </div>
                     </label>
 
@@ -325,16 +345,16 @@ export const CheckoutModal: React.FC = () => {
                       />
                       <div className="text-xs">
                         <span className="font-semibold text-[#141414] block">Prepaid Card / Visa / Mastercard</span>
-                        <span className="text-[#736B63]">Encrypted simulated payment checkout</span>
+                        <span className="text-[#5C544D]">Encrypted simulated payment checkout</span>
                       </div>
                     </label>
                   </div>
-                </div>
+                </fieldset>
 
                 <button
                   type="submit"
                   disabled={isSubmitting || cart.length === 0}
-                  className="w-full py-3.5 px-6 bg-[#141414] hover:bg-[#B89626] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-md disabled:opacity-50 mt-4"
+                  className="w-full py-3.5 px-6 bg-[#141414] hover:bg-[#785E19] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-md disabled:opacity-50 mt-4"
                 >
                   {isSubmitting ? (
                     <span>Scheduling Dispatch...</span>
@@ -350,9 +370,9 @@ export const CheckoutModal: React.FC = () => {
 
             <div className="md:col-span-5 bg-[#F2ECE4] p-6 sm:p-8 border-t md:border-t-0 md:border-l border-[#E2D8CC] flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <h4 className="font-serif-luxury text-xl font-medium text-[#141414]">
+                <h3 className="font-serif-luxury text-xl font-medium text-[#141414]">
                   Order Overview
-                </h4>
+                </h3>
 
                 <div className="space-y-3 max-h-56 overflow-y-auto pr-1">
                   {cart.map((item) => (
@@ -361,6 +381,10 @@ export const CheckoutModal: React.FC = () => {
                         <img
                           src={item.product.image}
                           alt={item.product.name}
+                          width={48}
+                          height={56}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover"
                         />
                       </div>

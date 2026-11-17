@@ -37,12 +37,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             src={product.image}
             alt={product.name}
-            referrerPolicy="no-referrer"
+            width={720}
+            height={538}
+            loading="lazy"
+            decoding="async"
             onError={() => setImageError(true)}
             className="w-full h-full object-cover object-center img-zoom group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-[#EDE7DF] text-[#736B63]">
+          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-[#EDE7DF] text-[#5E564E]">
             <span className="font-serif-luxury text-xl">{product.name}</span>
             <span className="text-xs uppercase tracking-wider mt-1">{product.subtitle}</span>
           </div>
@@ -56,7 +59,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </span>
           )}
           {product.isNewArrival && (
-            <span className="bg-[#B89626] text-white text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-xs">
+            <span className="bg-[#785E19] text-white text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-xs">
               New Arrival
             </span>
           )}
@@ -66,7 +69,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <button
           onClick={handleToggleWishlist}
           aria-label={isSaved ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
-          className="absolute top-3 right-3 p-2 rounded-full bg-white/90 hover:bg-white text-[#141414] shadow-sm backdrop-blur-xs transition-colors z-10"
+          className="absolute top-3 right-3 p-2 rounded-full bg-white/95 hover:bg-white text-[#141414] shadow-sm backdrop-blur-xs transition-colors z-10"
         >
           <Heart
             className={`w-4 h-4 transition-colors ${
@@ -94,30 +97,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
         <div>
           {/* Metadata clean unboxed */}
-          <div className="flex items-center justify-between text-xs text-[#8A8075] uppercase tracking-wider mb-1">
+          <div className="flex items-center justify-between text-xs text-[#5E564E] uppercase tracking-wider mb-1">
             <span>{product.brand}</span>
             <span aria-hidden="true">·</span>
             <span>{product.subtitle}</span>
           </div>
 
-          <h3 className="font-serif-luxury text-xl text-[#141414] font-medium group-hover:text-[#9A7B2C] transition-colors leading-snug">
+          <h3 className="font-serif-luxury text-xl text-[#141414] font-medium group-hover:text-[#785E19] transition-colors leading-snug">
             {product.name}
           </h3>
 
-          <div className="flex items-center gap-2 mt-1.5 text-xs text-[#6B635B]">
-            <div className="flex items-center text-[#D4AF37]">
-              <Star className="w-3.5 h-3.5 fill-[#D4AF37]" />
+          <div className="flex items-center gap-2 mt-1.5 text-xs text-[#554E47]">
+            <div className="flex items-center text-[#9A7B2C]">
+              <Star className="w-3.5 h-3.5 fill-[#D4AF37] text-[#B89626]" />
               <span className="font-mono tabular-nums font-semibold ml-1 text-[#141414]">
                 {product.rating.toFixed(1)}
               </span>
             </div>
-            <span aria-hidden="true" className="text-[#C5B8A5]">·</span>
-            <span className="text-[#8A8075] font-light">({product.reviewCount} reviews)</span>
+            <span aria-hidden="true" className="text-[#9E958A]">·</span>
+            <span className="text-[#5E564E] font-normal">({product.reviewCount} reviews)</span>
           </div>
         </div>
 
         {/* Fragrance Note Preview */}
-        <p className="text-xs text-[#7A7268] line-clamp-1 italic font-light">
+        <p className="text-xs text-[#5C544D] line-clamp-1 italic font-normal">
           Notes: {product.notes.top.slice(0, 2).join(', ')}, {product.notes.heart[0]}
         </p>
 
@@ -129,12 +132,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 {formatPrice(product.price)}
               </span>
               {product.originalPrice && product.originalPrice > product.price && (
-                <span className="font-mono text-xs text-[#9E958A] line-through tabular-nums">
+                <span className="font-mono text-xs text-[#665E56] line-through tabular-nums">
                   {formatPrice(product.originalPrice)}
                 </span>
               )}
             </div>
-            <span className="text-[10px] text-[#9A9186]">100ml / Flacon</span>
+            <span className="text-[10px] text-[#5E564E]">100ml / Flacon</span>
           </div>
 
           <button
@@ -142,7 +145,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-1.5 shrink-0 ${
               addedAnimation
                 ? 'bg-[#2E7D32] text-white'
-                : 'bg-[#141414] hover:bg-[#B89626] text-[#FAF8F5]'
+                : 'bg-[#141414] hover:bg-[#785E19] text-[#FAF8F5]'
             }`}
           >
             {addedAnimation ? (

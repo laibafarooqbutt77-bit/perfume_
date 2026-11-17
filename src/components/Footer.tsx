@@ -65,9 +65,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Collections */}
           <div className="space-y-3">
-            <h4 className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] font-semibold">
+            <h3 className="text-xs uppercase tracking-[0.2em] text-[#E6CA85] font-semibold">
               Collections
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs text-[#A89E92]">
               <li>
                 <button
@@ -122,9 +122,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 4: Concierge & Policies */}
           <div className="space-y-3">
-            <h4 className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] font-semibold">
+            <h3 className="text-xs uppercase tracking-[0.2em] text-[#E6CA85] font-semibold">
               Client Concierge
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs text-[#A89E92]">
               <li>
                 <a href="#scent-finder" className="hover:text-white transition-colors">
@@ -156,9 +156,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 5: Boutique Contact */}
           <div className="space-y-3">
-            <h4 className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] font-semibold">
+            <h3 className="text-xs uppercase tracking-[0.2em] text-[#E6CA85] font-semibold">
               Boutique Inquiries
-            </h4>
+            </h3>
             <div className="space-y-2 text-xs text-[#A89E92]">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
@@ -172,8 +172,8 @@ export const Footer: React.FC = () => {
                 <Mail className="w-4 h-4 text-[#D4AF37] shrink-0" />
                 <span>concierge@maisondorparfum.pk</span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] text-[#736B63] pt-2">
-                <Shield className="w-3.5 h-3.5 text-[#2E7D32]" />
+              <div className="flex items-center gap-2 text-[11px] text-[#B8AFA5] pt-2">
+                <Shield className="w-3.5 h-3.5 text-[#66BB6A]" />
                 <span>100% Genuine Ingredients Verified</span>
               </div>
             </div>
@@ -181,12 +181,12 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-[#211E1A] flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#736B63] gap-4">
+        <div className="pt-8 border-t border-[#211E1A] flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#B8AFA5] gap-4">
           <p>© {new Date().getFullYear()} Maison d’Or Parfumerie. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <span className="hover:text-[#A89E92] cursor-default">Privacy Policy</span>
-            <span className="hover:text-[#A89E92] cursor-default">Terms of Haute Parfumerie</span>
-            <span className="hover:text-[#A89E92] cursor-default">Security & Authenticity</span>
+            <span className="hover:text-white cursor-default">Privacy Policy</span>
+            <span className="hover:text-white cursor-default">Terms of Haute Parfumerie</span>
+            <span className="hover:text-white cursor-default">Security & Authenticity</span>
           </div>
         </div>
       </div>

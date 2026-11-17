@@ -26,8 +26,8 @@ export const BestSellersCarousel: React.FC = () => {
         {/* Header with Navigation Controls */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#8C7335] font-semibold mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#785E19]" />
               <span>Crowning Achievements</span>
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-5xl text-[#141414] font-medium tracking-tight">
@@ -36,20 +36,20 @@ export const BestSellersCarousel: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[#736B63] font-mono tabular-nums mr-2">
+            <span className="text-xs text-[#554E47] font-mono tabular-nums mr-2">
               0{currentIndex + 1} / 0{bestSellers.length}
             </span>
             <button
               onClick={prevSlide}
               aria-label="Previous best seller"
-              className="w-10 h-10 rounded-full border border-[#C5B8A5] flex items-center justify-center text-[#141414] hover:bg-[#141414] hover:text-white transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full border border-[#B8AA96] flex items-center justify-center text-[#141414] hover:bg-[#141414] hover:text-white transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextSlide}
               aria-label="Next best seller"
-              className="w-10 h-10 rounded-full border border-[#C5B8A5] flex items-center justify-center text-[#141414] hover:bg-[#141414] hover:text-white transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full border border-[#B8AA96] flex items-center justify-center text-[#141414] hover:bg-[#141414] hover:text-white transition-colors cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -63,7 +63,10 @@ export const BestSellersCarousel: React.FC = () => {
             <img
               src={current.image}
               alt={current.name}
-              referrerPolicy="no-referrer"
+              width={720}
+              height={538}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-center img-zoom transition-transform duration-700"
             />
             <div className="absolute top-4 left-4 bg-[#141414] text-[#E8DCC4] text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-xs">
@@ -74,14 +77,14 @@ export const BestSellersCarousel: React.FC = () => {
           {/* Right Column: Scent Narrative & Quick Actions */}
           <div className="lg:col-span-5 p-8 md:p-12 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <div className="flex items-center justify-between text-xs text-[#8A8075] uppercase tracking-wider">
+              <div className="flex items-center justify-between text-xs text-[#5E564E] uppercase tracking-wider">
                 <span>{current.subtitle}</span>
-                <div className="flex items-center text-[#D4AF37]">
-                  <Star className="w-3.5 h-3.5 fill-[#D4AF37]" />
+                <div className="flex items-center text-[#9A7B2C]">
+                  <Star className="w-3.5 h-3.5 fill-[#D4AF37] text-[#B89626]" />
                   <span className="font-mono tabular-nums font-semibold ml-1 text-[#141414]">
                     {current.rating.toFixed(1)}
                   </span>
-                  <span className="text-[#8A8075] ml-1">({current.reviewCount})</span>
+                  <span className="text-[#5E564E] ml-1">({current.reviewCount})</span>
                 </div>
               </div>
 
@@ -89,16 +92,16 @@ export const BestSellersCarousel: React.FC = () => {
                 {current.name}
               </h3>
 
-              <p className="text-sm text-[#5C554E] leading-relaxed font-normal">
+              <p className="text-sm text-[#4E4741] leading-relaxed font-normal">
                 {current.story}
               </p>
 
               {/* Olfactory pyramid preview */}
               <div className="p-4 bg-[#F2ECE4] rounded-lg border border-[#E2D8CC] space-y-2">
-                <div className="text-[11px] uppercase tracking-wider font-semibold text-[#8C7335]">
+                <div className="text-[11px] uppercase tracking-wider font-semibold text-[#6E561E]">
                   Olfactory Notes
                 </div>
-                <div className="text-xs text-[#4A443E] space-y-1">
+                <div className="text-xs text-[#3F3A35] space-y-1">
                   <p><span className="font-medium text-[#141414]">Top:</span> {current.notes.top.join(', ')}</p>
                   <p><span className="font-medium text-[#141414]">Heart:</span> {current.notes.heart.join(', ')}</p>
                   <p><span className="font-medium text-[#141414]">Base:</span> {current.notes.base.join(', ')}</p>
@@ -114,25 +117,25 @@ export const BestSellersCarousel: React.FC = () => {
                     {formatPrice(current.price)}
                   </span>
                   {current.originalPrice && (
-                    <span className="font-mono text-sm text-[#9E958A] line-through tabular-nums">
+                    <span className="font-mono text-sm text-[#665E56] line-through tabular-nums">
                       {formatPrice(current.originalPrice)}
                     </span>
                   )}
                 </div>
-                <span className="text-[11px] text-[#736B63]">100ml Pure Extrait Flacon</span>
+                <span className="text-[11px] text-[#5C544D]">100ml Pure Extrait Flacon</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => openQuickView(current)}
                   aria-label="View fragrance specifications"
-                  className="p-3 border border-[#C5B8A5] hover:bg-[#EFE9DF] text-[#141414] rounded-xs transition-colors"
+                  className="p-3 border border-[#B8AA96] hover:bg-[#EFE9DF] text-[#141414] rounded-xs transition-colors"
                 >
                   <Eye className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => addToCart(current)}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#141414] hover:bg-[#B89626] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#141414] hover:bg-[#785E19] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>Add to Bag</span>
@@ -145,13 +148,13 @@ export const BestSellersCarousel: React.FC = () => {
         {/* Tasteful Promotional Banner */}
         <div className="mt-12 bg-gradient-to-r from-[#141414] via-[#2A2621] to-[#141414] text-[#FAF8F5] p-6 md:p-8 rounded-lg border border-[#3E3830] flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
           <div className="space-y-1 text-center md:text-left">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-[#E6CA85] font-semibold">
               Seasonal Collector’s Privilege
             </span>
-            <h4 className="font-serif-luxury text-xl md:text-2xl text-white">
+            <h3 className="font-serif-luxury text-xl md:text-2xl text-white">
               Enjoy 15% Off Your First Purchase with Code: <span className="font-mono text-[#E6CA85]">MAISON15</span>
-            </h4>
-            <p className="text-xs text-[#B5ABA0]">
+            </h3>
+            <p className="text-xs text-[#C7BEB2]">
               Applies automatically at checkout on all orders above ₨ 20,000. Includes complimentary sample vials.
             </p>
           </div>

@@ -52,10 +52,10 @@ export const CartDrawer: React.FC = () => {
         {/* Drawer Header */}
         <div className="p-6 border-b border-[#E8E2D9] flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#8C7335]" />
-            <h3 className="font-serif-luxury text-xl font-medium tracking-wide">
+            <ShoppingBag className="w-5 h-5 text-[#6E561E]" />
+            <h2 className="font-serif-luxury text-xl font-medium tracking-wide">
               Your Fragrance Bag
-            </h3>
+            </h2>
             <span className="text-xs text-[#8A8075] font-mono tabular-nums">
               ({cart.reduce((sum, item) => sum + item.quantity, 0)})
             </span>
@@ -98,9 +98,9 @@ export const CartDrawer: React.FC = () => {
               <div className="w-16 h-16 rounded-full bg-[#F2ECE4] flex items-center justify-center mx-auto text-[#8C7335]">
                 <ShoppingBag className="w-8 h-8 stroke-[1.5]" />
               </div>
-              <h4 className="font-serif-luxury text-2xl text-[#141414]">
+              <h3 className="font-serif-luxury text-2xl text-[#141414]">
                 Your bag is empty
-              </h4>
+              </h3>
               <p className="text-xs text-[#736B63] max-w-xs mx-auto">
                 Explore our olfactory collections and find the signature extrait meant for you.
               </p>
@@ -123,7 +123,10 @@ export const CartDrawer: React.FC = () => {
                     <img
                       src={item.product.image}
                       alt={item.product.name}
-                      referrerPolicy="no-referrer"
+                      width={64}
+                      height={80}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -131,9 +134,9 @@ export const CartDrawer: React.FC = () => {
                   {/* Details */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-1">
-                      <h5 className="font-serif-luxury text-base font-semibold text-[#141414] truncate">
+                      <h3 className="font-serif-luxury text-base font-semibold text-[#141414] truncate">
                         {item.product.name}
-                      </h5>
+                      </h3>
                       <button
                         onClick={() => removeFromCart(item.id)}
                         className="text-[#9E958A] hover:text-[#C0392B] p-1 transition-colors"
@@ -197,12 +200,16 @@ export const CartDrawer: React.FC = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleApplyPromo} className="flex gap-2">
+                    <label htmlFor="cart-promo-input" className="sr-only">
+                      Promo code
+                    </label>
                     <input
+                      id="cart-promo-input"
                       type="text"
                       value={promoInput}
                       onChange={(e) => setPromoInput(e.target.value)}
                       placeholder="Promo code (e.g. MAISON15)"
-                      className="flex-1 px-3 py-2 bg-white border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#D4AF37]"
+                      className="flex-1 px-3 py-2 bg-white border border-[#D9D1C5] rounded-xs text-xs text-[#141414] focus:outline-hidden focus:border-[#785E19]"
                     />
                     <button
                       type="submit"
