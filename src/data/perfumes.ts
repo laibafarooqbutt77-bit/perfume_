@@ -1,19 +1,19 @@
 import { PerfumeProduct, CollectionItem, CustomerReview } from '../types/perfume';
 
-// Image assets generated for the boutique
+// Image assets served from /public/images for both dev and production/Vercel builds
 export const IMAGES = {
-  hero: '/src/assets/images/hero_perfume_bottle_1792414164003.jpg',
-  atelier: '/src/assets/images/perfume_brand_atelier_1792414167694.jpg',
-  oudRoyale: '/src/assets/images/perfume_oud_royale_1792414164830.jpg',
-  velvetRose: '/src/assets/images/perfume_velvet_rose_1792414166131.jpg',
-  midnightNoir: '/src/assets/images/perfume_midnight_noir_1792414167423.jpg',
-  amberEssence: '/src/assets/images/perfume_amber_essence_1792414166528.jpg',
-  whiteMusk: '/src/assets/images/perfume_white_musk_1792414192762.jpg',
-  goldenOud: '/src/assets/images/perfume_golden_oud_1792414194060.jpg',
-  roseElegance: '/src/assets/images/perfume_rose_elegance_1792414195175.jpg',
-  oceanBreeze: '/src/assets/images/perfume_ocean_breeze_1792414195318.jpg',
-  imperialWoods: '/src/assets/images/perfume_imperial_woods_1792414196471.jpg',
-  vanillaBloom: '/src/assets/images/perfume_vanilla_bloom_1792414195955.jpg',
+  hero: '/images/hero_perfume_bottle_1792414164003.jpg',
+  atelier: '/images/perfume_brand_atelier_1792414167694.jpg',
+  oudRoyale: '/images/perfume_oud_royale_1792414164830.jpg',
+  velvetRose: '/images/perfume_velvet_rose_1792414166131.jpg',
+  midnightNoir: '/images/perfume_midnight_noir_1792414167423.jpg',
+  amberEssence: '/images/perfume_amber_essence_1792414166528.jpg',
+  whiteMusk: '/images/perfume_white_musk_1792414192762.jpg',
+  goldenOud: '/images/perfume_golden_oud_1792414194060.jpg',
+  roseElegance: '/images/perfume_rose_elegance_1792414195175.jpg',
+  oceanBreeze: '/images/perfume_ocean_breeze_1792414195318.jpg',
+  imperialWoods: '/images/perfume_imperial_woods_1792414196471.jpg',
+  vanillaBloom: '/images/perfume_vanilla_bloom_1792414195955.jpg',
 };
 
 export const PERFUMES_DATA: PerfumeProduct[] = [
