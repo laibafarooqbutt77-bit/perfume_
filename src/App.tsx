@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense, useState, useEffect, useCallback } from 'react';
 import { Sparkles } from 'lucide-react';
+import { SiteContentProvider } from './context/SiteContentContext';
 import { ShopProvider, useShop } from './context/ShopContext';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
@@ -14,29 +15,37 @@ import { ProductGrid } from './components/ProductGrid';
 import { FragranceDiscovery } from './components/FragranceDiscovery';
 import { BestSellersCarousel } from './components/BestSellersCarousel';
 import { BrandStory } from './components/BrandStory';
+import { CustomSectionsRenderer } from './components/CustomSectionsRenderer';
 import { CustomerReviews } from './components/CustomerReviews';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
 
 const loadChatAssistant = () =>
-  import('./components/ChatAssistant').then(m => ({ default: m.ChatAssistant }));
+  import('./components/ChatAssistant').then((m) => ({ default: m.ChatAssistant }));
 
 const LazyProductDetailsModal = lazy(() =>
-  import('./components/ProductDetailsModal').then(m => ({ default: m.ProductDetailsModal }))
+  import('./components/ProductDetailsModal').then((m) => ({ default: m.ProductDetailsModal }))
 );
 const LazyCartDrawer = lazy(() =>
-  import('./components/CartDrawer').then(m => ({ default: m.CartDrawer }))
+  import('./components/CartDrawer').then((m) => ({ default: m.CartDrawer }))
 );
 const LazyWishlistDrawer = lazy(() =>
-  import('./components/WishlistDrawer').then(m => ({ default: m.WishlistDrawer }))
+  import('./components/WishlistDrawer').then((m) => ({ default: m.WishlistDrawer }))
 );
 const LazyCheckoutModal = lazy(() =>
-  import('./components/CheckoutModal').then(m => ({ default: m.CheckoutModal }))
+  import('./components/CheckoutModal').then((m) => ({ default: m.CheckoutModal }))
 );
 const LazyChatAssistant = lazy(loadChatAssistant);
+const LazyAdminPortal = lazy(() =>
+  import('./components/admin/AdminPortal').then((m) => ({ default: m.AdminPortal }))
+);
 
-function BoutiqueStore() {
+function isAdminPath(pathname: string): boolean {
+  return pathname === '/admin' || pathname.startsWith('/admin/');
+}
+
+function BoutiqueStore({ onOpenAdmin }: { onOpenAdmin: () => void }) {
   const { cartOpen, wishlistOpen, checkoutOpen, quickViewProduct, cartCount } = useShop();
   const [chatMounted, setChatMounted] = useState(false);
 
@@ -52,12 +61,18 @@ function BoutiqueStore() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#141414] font-sans selection:bg-[#E8DCC4] selection:text-[#141414]">
+    <div
+      className="min-h-screen flex flex-col font-sans selection:bg-[#E8DCC4] selection:text-[#141414]"
+      style={{
+        backgroundColor: 'var(--cms-bg, #FAF8F5)',
+        color: 'var(--cms-text, #141414)'
+      }}
+    >
       {/* 1. Announcement Bar */}
       <AnnouncementBar />
 
       {/* 2. Premium Sticky Navigation */}
-      <Navbar onSearchClick={handleSearchFocus} />
+      <Navbar onSearchClick={handleSearchFocus} onOpenAdmin={onOpenAdmin} />
 
       {/* 3. Main Boutique Content Flow */}
       <main className="flex-1">
@@ -79,15 +94,18 @@ function BoutiqueStore() {
         {/* F. Brand Atelier Craftsmanship Story */}
         <BrandStory />
 
-        {/* G. Customer Testimonials Across Pakistan */}
+        {/* G. Dynamic Custom Sections authored in Admin CMS */}
+        <CustomSectionsRenderer />
+
+        {/* H. Customer Testimonials Across Pakistan */}
         <CustomerReviews />
 
-        {/* H. Privileged Newsletter Invitation */}
+        {/* I. Privileged Newsletter Invitation */}
         <NewsletterSection />
       </main>
 
       {/* 4. Luxury Footer */}
-      <Footer />
+      <Footer onOpenAdmin={onOpenAdmin} />
 
       {/* 5. Lazy-loaded Modals, Drawers & AI Concierge */}
       <Suspense fallback={null}>
@@ -134,10 +152,58 @@ function BoutiqueStore() {
   );
 }
 
+function AppRouter() {
+  const [adminRoute, setAdminRoute] = useState<boolean>(() =>
+    typeof window !== 'undefined' ? isAdminPath(window.location.pathname) : false
+  );
+
+  useEffect(() => {
+    const onPopState = () => {
+      setAdminRoute(isAdminPath(window.location.pathname));
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const navigateToAdmin = useCallback(() => {
+    if (window.location.pathname !== '/admin') {
+      window.history.pushState({}, '', '/admin');
+    }
+    setAdminRoute(true);
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  const navigateToStore = useCallback(() => {
+    if (window.location.pathname !== '/') {
+      window.history.pushState({}, '', '/');
+    }
+    setAdminRoute(false);
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  if (adminRoute) {
+    return (
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-[#12110F] text-[#E6CA85] flex items-center justify-center text-xs uppercase tracking-[0.2em]">
+            Loading Private Admin Portal...
+          </div>
+        }
+      >
+        <LazyAdminPortal onExitToStore={navigateToStore} />
+      </Suspense>
+    );
+  }
+
+  return <BoutiqueStore onOpenAdmin={navigateToAdmin} />;
+}
+
 export default function App() {
   return (
-    <ShopProvider>
-      <BoutiqueStore />
-    </ShopProvider>
+    <SiteContentProvider>
+      <ShopProvider>
+        <AppRouter />
+      </ShopProvider>
+    </SiteContentProvider>
   );
 }

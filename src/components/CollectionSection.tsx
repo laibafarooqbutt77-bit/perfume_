@@ -1,11 +1,16 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { COLLECTIONS_DATA } from '../data/perfumes';
 import { useShop } from '../context/ShopContext';
+import { useSiteContent } from '../context/SiteContentContext';
 import { FragranceCategory } from '../types/perfume';
+import { CmsImage } from './CmsMedia';
 
 export const CollectionSection: React.FC = () => {
   const { setSelectedCategory, setSelectedFamily } = useShop();
+  const { cms } = useSiteContent();
+
+  const header = cms.sectionHeaders.collections;
+  if (!header.visible) return null;
 
   const handleSelectCollection = (categoryId: FragranceCategory) => {
     setSelectedCategory(categoryId);
@@ -19,31 +24,28 @@ export const CollectionSection: React.FC = () => {
   return (
     <section className="py-16 md:py-24 bg-[#F5EFEB]/50 border-b border-[#E8E2D9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
             <div className="text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold mb-2">
-              Curated Olfactory Realms
+              {header.kicker}
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-4xl text-[#141414] font-medium tracking-tight">
-              Shop by Collection
+              {header.title}
             </h2>
           </div>
           <p className="text-sm text-[#554E47] max-w-md font-normal">
-            From smoky woods and nocturnal leathers to sun-warmed Centifolia rose petals and rare aged agarwood flacons.
+            {header.subtitle}
           </p>
         </div>
 
-        {/* Collection Cards Grid (6 curated collections) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {COLLECTIONS_DATA.map((col) => (
+          {cms.collections.map((col) => (
             <div
               key={col.id}
               onClick={() => handleSelectCollection(col.id)}
               className="group cursor-pointer relative overflow-hidden rounded-lg bg-[#141414] aspect-[4/3] flex flex-col justify-end p-6 md:p-7 transition-all duration-300 shadow-sm hover:shadow-xl border border-[#E0D7CC]"
             >
-              {/* Background Product Image */}
-              <img
+              <CmsImage
                 src={col.image}
                 alt={col.name}
                 width={720}
@@ -53,10 +55,8 @@ export const CollectionSection: React.FC = () => {
                 className="absolute inset-0 w-full h-full object-cover object-center img-zoom group-hover:scale-105 transition-transform duration-700 brightness-95 group-hover:brightness-90"
               />
 
-              {/* Scrim overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent transition-opacity group-hover:via-black/55" />
 
-              {/* Card Content */}
               <div className="relative z-10 space-y-1.5">
                 <div className="flex items-center justify-between text-[#E6CA85]">
                   <span className="text-[11px] uppercase tracking-[0.2em] font-semibold">

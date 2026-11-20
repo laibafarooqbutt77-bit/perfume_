@@ -1,5 +1,6 @@
 import React from 'react';
 import { useShop } from '../context/ShopContext';
+import { useSiteContent } from '../context/SiteContentContext';
 import { ProductCard } from './ProductCard';
 import { Search, SlidersHorizontal, RefreshCw, Sparkles } from 'lucide-react';
 import { FragranceCategory } from '../types/perfume';
@@ -16,6 +17,10 @@ export const ProductGrid: React.FC = () => {
     sortBy,
     setSortBy
   } = useShop();
+  const { cms } = useSiteContent();
+
+  const header = cms.sectionHeaders.catalog;
+  if (!header.visible) return null;
 
   const categories: { id: FragranceCategory; label: string }[] = [
     { id: 'all', label: 'All Fragrances' },
@@ -35,26 +40,28 @@ export const ProductGrid: React.FC = () => {
   };
 
   return (
-    <section id="collection-grid" className="py-16 md:py-24 bg-[#FAF8F5]">
+    <section
+      id="collection-grid"
+      className="py-16 md:py-24"
+      style={{ backgroundColor: 'var(--cms-bg, #FAF8F5)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Title */}
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
           <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold">
             <Sparkles className="w-3.5 h-3.5 text-[#785E19]" />
-            <span>The Permanent Collection</span>
+            <span>{header.kicker}</span>
           </div>
           <h2 className="font-serif-luxury text-3xl md:text-5xl text-[#141414] font-medium tracking-tight">
-            Artisanal Flacons
+            {header.title}
           </h2>
           <p className="text-sm md:text-base text-[#554E47] font-normal">
-            Every bottle is hand-poured in limited runs, numbered, and macerated for optimal sillage and longevity.
+            {header.subtitle}
           </p>
         </div>
 
         {/* Search & Filter Bar */}
         <div className="bg-[#FFFFFF] border border-[#E8E2D9] p-4 md:p-6 rounded-lg mb-10 shadow-xs space-y-4">
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-            {/* Search Input */}
             <div className="relative flex-1 max-w-md">
               <label htmlFor="catalog-search" className="sr-only">
                 Search fragrances by name or notes
@@ -78,7 +85,6 @@ export const ProductGrid: React.FC = () => {
               )}
             </div>
 
-            {/* Sort Dropdown */}
             <div className="flex items-center gap-3">
               <label
                 htmlFor="sort-perfumes"
@@ -90,7 +96,11 @@ export const ProductGrid: React.FC = () => {
               <select
                 id="sort-perfumes"
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as 'popular' | 'price-low' | 'price-high' | 'rating' | 'newest')}
+                onChange={(e) =>
+                  setSortBy(
+                    e.target.value as 'popular' | 'price-low' | 'price-high' | 'rating' | 'newest'
+                  )
+                }
                 className="bg-[#FAF8F5] border border-[#D8CFC3] px-3 py-2.5 rounded-xs text-xs md:text-sm text-[#141414] focus:outline-hidden focus:border-[#785E19] cursor-pointer"
               >
                 <option value="popular">Most Popular</option>
@@ -102,7 +112,6 @@ export const ProductGrid: React.FC = () => {
             </div>
           </div>
 
-          {/* Category Filter Buttons (Functional segmented buttons per frontend-design rules) */}
           <div className="pt-2 border-t border-[#F0EBE3] flex flex-wrap items-center gap-2">
             {categories.map((cat) => {
               const isSelected = selectedCategory === cat.id;
@@ -123,7 +132,6 @@ export const ProductGrid: React.FC = () => {
           </div>
         </div>
 
-        {/* Results Counter and Active Filter Pill Tags */}
         <div className="flex items-center justify-between mb-8 text-xs text-[#554E47]">
           <div className="flex items-center gap-2">
             <span className="font-medium text-[#141414] tabular-nums font-mono">
@@ -145,7 +153,6 @@ export const ProductGrid: React.FC = () => {
           </span>
         </div>
 
-        {/* Product Grid */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {filteredProducts.map((product) => (
@@ -153,7 +160,6 @@ export const ProductGrid: React.FC = () => {
             ))}
           </div>
         ) : (
-          /* Empty State */
           <div className="text-center py-20 bg-white border border-[#E8E2D9] rounded-lg p-8 space-y-4">
             <div className="w-12 h-12 mx-auto rounded-full bg-[#FAF8F5] flex items-center justify-center text-[#6E561E]">
               <Search className="w-6 h-6" />

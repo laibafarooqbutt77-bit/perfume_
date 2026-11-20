@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Trash2, ShoppingBag, ArrowRight, Truck, Tag } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
+import { CmsImage } from './CmsMedia';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -120,7 +121,7 @@ export const CartDrawer: React.FC = () => {
                 >
                   {/* Thumb */}
                   <div className="w-16 h-20 bg-[#141414] rounded-xs overflow-hidden shrink-0">
-                    <img
+                    <CmsImage
                       src={item.product.image}
                       alt={item.product.name}
                       width={64}

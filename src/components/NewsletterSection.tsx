@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { Mail, CheckCircle2, ArrowRight } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export const NewsletterSection: React.FC = () => {
+  const { cms, addMessage } = useSiteContent();
+  const header = cms.sectionHeaders.newsletter;
+
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [error, setError] = useState('');
+
+  if (!header.visible) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,24 +22,34 @@ export const NewsletterSection: React.FC = () => {
       return;
     }
 
+    addMessage({
+      senderName: email.split('@')[0] || 'Gazette Subscriber',
+      email: email.trim(),
+      subject: 'Newsletter Subscription',
+      message: `Subscribed via ${cms.siteSettings.siteName} Gazette invitation form.`,
+      source: 'newsletter'
+    });
+
     setSubscribed(true);
     setEmail('');
   };
 
   return (
-    <section className="py-16 md:py-24 bg-[#141414] text-[#FAF8F5] relative overflow-hidden border-b border-[#292520]">
+    <section
+      className="py-16 md:py-24 text-[#FAF8F5] relative overflow-hidden border-b border-[#292520]"
+      style={{ backgroundColor: 'var(--cms-dark-bg, #141414)' }}
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
         <span className="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-semibold">
-          The Maison d’Or Gazette
+          {header.kicker}
         </span>
 
         <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-white font-medium">
-          Privileged Invitations & Private Releases
+          {header.title}
         </h2>
 
         <p className="text-sm md:text-base text-[#B0A79E] max-w-xl mx-auto font-light leading-relaxed">
-          Be the first to receive notifications regarding micro-batch harvests, seasonal extrait decants,
-          and private olfactory exhibitions in Pakistan.
+          {header.subtitle}
         </p>
 
         {subscribed ? (
@@ -44,7 +60,7 @@ export const NewsletterSection: React.FC = () => {
                 Bienvenue to the Circle
               </p>
               <p className="text-xs text-[#B5ABA0]">
-                Thank you for subscribing! Your demonstration invitation has been noted.
+                Thank you for subscribing! Your invitation has been recorded in our local ledger.
               </p>
             </div>
           </div>
@@ -64,7 +80,7 @@ export const NewsletterSection: React.FC = () => {
                     setEmail(e.target.value);
                     if (error) setError('');
                   }}
-                  placeholder="Enter your email address..."
+                  placeholder={header.placeholder || 'Enter your email address...'}
                   className="w-full pl-10 pr-4 py-3 bg-[#1C1A17] border border-[#3E3830] text-white text-xs placeholder-[#ACA296] focus:outline-hidden focus:border-[#D4AF37] rounded-xs transition-colors"
                 />
               </div>
@@ -73,18 +89,16 @@ export const NewsletterSection: React.FC = () => {
                 type="submit"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FAF8F5] hover:bg-[#D4AF37] text-[#141414] text-xs font-semibold uppercase tracking-wider transition-colors shrink-0"
               >
-                <span>Subscribe</span>
+                <span>{header.buttonLabel || 'Subscribe'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
 
-            {error && (
-              <p className="text-xs text-[#F28B82] text-left">{error}</p>
-            )}
+            {error && <p className="text-xs text-[#F28B82] text-left">{error}</p>}
 
-            <p className="text-[11px] text-[#B8AFA5] text-center">
-              * Frontend demonstration. No promotional spam will be delivered.
-            </p>
+            {header.disclaimer && (
+              <p className="text-[11px] text-[#B8AFA5] text-center">{header.disclaimer}</p>
+            )}
           </form>
         )}
       </div>

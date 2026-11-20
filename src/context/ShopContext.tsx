@@ -7,6 +7,7 @@ import {
   OrderRecord
 } from '../types/perfume';
 import { PERFUMES_DATA } from '../data/perfumes';
+import { useSiteContent } from './SiteContentContext';
 
 interface ToastState {
   show: boolean;
@@ -106,7 +107,7 @@ function getDefaultCustomerProfile(): CustomerProfile {
   };
 }
 
-function safeParseCart(): CartItem[] {
+function safeParseCart(products: PerfumeProduct[]): CartItem[] {
   if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem('maisondor_cart');
@@ -117,13 +118,13 @@ function safeParseCart(): CartItem[] {
     for (const item of parsed) {
       if (!item || typeof item !== 'object') continue;
       const productId = item.product?.id;
-      const catalogProduct = PERFUMES_DATA.find(p => p.id === productId);
+      const catalogProduct = products.find(p => p.id === productId);
       if (!catalogProduct) continue;
       const selectedSize =
         typeof item.selectedSize === 'string' &&
         catalogProduct.sizes.some(s => s.size === item.selectedSize)
           ? item.selectedSize
-          : catalogProduct.sizes[catalogProduct.sizes.length - 1].size;
+          : catalogProduct.sizes[catalogProduct.sizes.length - 1]?.size || '100 ml';
       const sizeConfig = catalogProduct.sizes.find(s => s.size === selectedSize);
       const unitPrice = sizeConfig ? sizeConfig.price : catalogProduct.price;
       const qty = Number(item.quantity);
@@ -148,7 +149,7 @@ function safeParseCart(): CartItem[] {
   }
 }
 
-function safeParseStringArray(key: string): string[] {
+function safeParseStringArray(key: string, products: PerfumeProduct[]): string[] {
   if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem(key);
@@ -157,7 +158,7 @@ function safeParseStringArray(key: string): string[] {
     if (!Array.isArray(parsed)) return [];
     return parsed.filter(
       (id): id is string =>
-        typeof id === 'string' && PERFUMES_DATA.some(p => p.id === id)
+        typeof id === 'string' && products.some(p => p.id === id)
     );
   } catch {
     return [];
@@ -219,10 +220,15 @@ function safeParseOrderHistory(): OrderRecord[] {
 }
 
 export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [cart, setCart] = useState<CartItem[]>(safeParseCart);
-  const [wishlist, setWishlist] = useState<string[]>(() => safeParseStringArray('maisondor_wishlist'));
+  const { cms, recordOrderCustomer } = useSiteContent();
+  const catalogProducts = cms.products.length > 0 ? cms.products : PERFUMES_DATA;
+
+  const [cart, setCart] = useState<CartItem[]>(() => safeParseCart(catalogProducts));
+  const [wishlist, setWishlist] = useState<string[]>(() =>
+    safeParseStringArray('maisondor_wishlist', catalogProducts)
+  );
   const [recentlyViewed, setRecentlyViewed] = useState<string[]>(() =>
-    safeParseStringArray('maisondor_recently_viewed')
+    safeParseStringArray('maisondor_recently_viewed', catalogProducts)
   );
   const [customerProfile, setCustomerProfile] = useState<CustomerProfile>(safeParseCustomerProfile);
   const [orderHistory, setOrderHistory] = useState<OrderRecord[]>(safeParseOrderHistory);
@@ -393,7 +399,7 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
     (productId: string) => {
       setWishlist(prev => {
         const isSaved = prev.includes(productId);
-        const perfume = PERFUMES_DATA.find(p => p.id === productId);
+        const perfume = catalogProducts.find(p => p.id === productId);
         const name = perfume ? perfume.name : 'Item';
         if (isSaved) {
           showToast(`Removed ${name} from your wishlist`, 'wishlist');
@@ -404,7 +410,7 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       });
     },
-    [showToast]
+    [catalogProducts, showToast]
   );
 
   const isWishlisted = useCallback((productId: string) => wishlist.includes(productId), [wishlist]);
@@ -523,12 +529,20 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
         address: input.address.trim() || prev.address,
         city: input.city.trim() || prev.city
       }));
+      recordOrderCustomer({
+        fullName: newOrder.customer.fullName,
+        phone: newOrder.customer.phone,
+        email: newOrder.customer.email,
+        address: newOrder.customer.address,
+        city: newOrder.customer.city,
+        orderTotal: newOrder.total
+      });
       setCart([]);
       setPromoCode(null);
       showToast(`Order ${orderNumber} confirmed!`, 'info');
       return newOrder;
     },
-    [cart, cartSubtotal, discountAmount, promoCode, shippingFee, cartTotal, customerProfile.email, showToast]
+    [cart, cartSubtotal, discountAmount, promoCode, shippingFee, cartTotal, customerProfile.email, recordOrderCustomer, showToast]
   );
 
   const syncStateFromAssistant = useCallback(
@@ -554,7 +568,7 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Filtering logic
   const filteredProducts = useMemo(() => {
-    return PERFUMES_DATA.filter(product => {
+    return catalogProducts.filter(product => {
       if (selectedCategory !== 'all' && product.category !== selectedCategory) {
         return false;
       }
@@ -594,7 +608,7 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (sortBy === 'newest') return (b.isNewArrival ? 1 : 0) - (a.isNewArrival ? 1 : 0);
       return b.reviewCount - a.reviewCount;
     });
-  }, [selectedCategory, selectedFamily, priceRange, searchQuery, sortBy]);
+  }, [catalogProducts, selectedCategory, selectedFamily, priceRange, searchQuery, sortBy]);
 
   return (
     <ShopContext.Provider

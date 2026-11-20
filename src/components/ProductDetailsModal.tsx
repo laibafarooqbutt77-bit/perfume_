@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Heart, ShoppingBag, Star, Shield, Truck, Droplets, Clock, Sparkles, Check } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
+import { CmsImage } from './CmsMedia';
 
 export const ProductDetailsModal: React.FC = () => {
   const {
@@ -63,7 +64,7 @@ export const ProductDetailsModal: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 max-h-[85vh] overflow-y-auto">
           {/* Left Column: Big Bottle Image & Badges */}
           <div className="md:col-span-5 bg-[#141414] relative aspect-square md:aspect-auto flex items-center justify-center overflow-hidden">
-            <img
+            <CmsImage
               src={quickViewProduct.image}
               alt={quickViewProduct.name}
               width={720}

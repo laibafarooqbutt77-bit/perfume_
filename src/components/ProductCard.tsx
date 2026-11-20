@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Heart, Eye, ShoppingBag, Star, Check } from 'lucide-react';
 import { PerfumeProduct } from '../types/perfume';
 import { useShop } from '../context/ShopContext';
+import { CmsImage } from './CmsMedia';
 
 interface ProductCardProps {
   product: PerfumeProduct;
@@ -34,7 +35,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Product Image Section */}
       <div className="relative aspect-[4/3] sm:aspect-square bg-[#F7F4EF] overflow-hidden">
         {!imageError ? (
-          <img
+          <CmsImage
             src={product.image}
             alt={product.name}
             width={720}

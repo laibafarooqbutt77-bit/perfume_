@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2, ShieldCheck, Truck, ArrowRight } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { OrderRecord } from '../types/perfume';
+import { CmsImage } from './CmsMedia';
 
 const PAKISTAN_CITIES = [
   'Lahore',
@@ -378,7 +379,7 @@ export const CheckoutModal: React.FC = () => {
                   {cart.map((item) => (
                     <div key={item.id} className="flex items-center gap-3 text-xs">
                       <div className="w-12 h-14 bg-[#141414] rounded-xs overflow-hidden shrink-0">
-                        <img
+                        <CmsImage
                           src={item.product.image}
                           alt={item.product.name}
                           width={48}

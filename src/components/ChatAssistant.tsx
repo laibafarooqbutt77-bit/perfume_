@@ -22,7 +22,8 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useShop } from '../context/ShopContext';
-import { PERFUMES_DATA } from '../data/perfumes';
+import { useSiteContent } from '../context/SiteContentContext';
+import { CmsImage } from './CmsMedia';
 import type { ChatMessage, PerfumeProduct } from '../types/perfume';
 
 const CHAT_HISTORY_KEY = 'maisondor_chat_history';
@@ -181,6 +182,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ initialOpen = fals
     syncStateFromAssistant,
     formatPrice
   } = useShop();
+  const { cms } = useSiteContent();
 
   const [isOpen, setIsOpen] = useState(initialOpen);
   const [showProfilePanel, setShowProfilePanel] = useState(false);
@@ -313,7 +315,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ initialOpen = fals
       if (Array.isArray(data.uiCommands)) {
         for (const cmd of data.uiCommands) {
           if (cmd.type === 'OPEN_PRODUCT' && cmd.productId) {
-            const p = PERFUMES_DATA.find(x => x.id === cmd.productId);
+            const p = cms.products.find(x => x.id === cmd.productId);
             if (p) openQuickView(p);
           } else if (cmd.type === 'OPEN_CART') {
             setCartOpen(true);
@@ -717,7 +719,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ initialOpen = fals
                                   onClick={() => openQuickView(prod)}
                                   className="w-16 h-20 rounded-xs overflow-hidden bg-[#141414] shrink-0 cursor-pointer"
                                 >
-                                  <img
+                                  <CmsImage
                                     src={prod.image}
                                     alt={prod.name}
                                     width={64}
@@ -816,7 +818,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ initialOpen = fals
                             {msg.comparison.slice(0, 2).map((p) => (
                               <div key={p.id} className="p-3 space-y-2">
                                 <div className="aspect-[4/3] rounded-xs overflow-hidden bg-[#141414]">
-                                  <img
+                                  <CmsImage
                                     src={p.image}
                                     alt={p.name}
                                     width={200}

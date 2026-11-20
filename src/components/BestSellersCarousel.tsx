@@ -1,43 +1,56 @@
-import React, { useState } from 'react';
-import { PERFUMES_DATA } from '../data/perfumes';
+import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
+import { useSiteContent } from '../context/SiteContentContext';
 import { ChevronLeft, ChevronRight, Star, ShoppingBag, Eye, Sparkles } from 'lucide-react';
+import { CmsImage } from './CmsMedia';
 
 export const BestSellersCarousel: React.FC = () => {
   const { addToCart, openQuickView, formatPrice } = useShop();
-  const bestSellers = PERFUMES_DATA.filter(p => p.isBestSeller);
+  const { cms } = useSiteContent();
+
+  const header = cms.sectionHeaders.bestSellers;
+  const bestSellers = cms.products.filter((p) => p.isBestSeller);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    if (currentIndex >= bestSellers.length) {
+      setCurrentIndex(0);
+    }
+  }, [currentIndex, bestSellers.length]);
+
+  if (!header.visible || bestSellers.length === 0) return null;
+
   const prevSlide = () => {
-    setCurrentIndex(prev => (prev === 0 ? bestSellers.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? bestSellers.length - 1 : prev - 1));
   };
 
   const nextSlide = () => {
-    setCurrentIndex(prev => (prev === bestSellers.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === bestSellers.length - 1 ? 0 : prev + 1));
   };
 
-  const current = bestSellers[currentIndex];
-
+  const current = bestSellers[currentIndex] || bestSellers[0];
   if (!current) return null;
 
   return (
-    <section id="best-sellers" className="py-16 md:py-24 bg-[#F2ECE4] border-b border-[#E5DDD2] relative overflow-hidden">
+    <section
+      id="best-sellers"
+      className="py-16 md:py-24 bg-[#F2ECE4] border-b border-[#E5DDD2] relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with Navigation Controls */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#6E561E] font-semibold mb-2">
               <Sparkles className="w-3.5 h-3.5 text-[#785E19]" />
-              <span>Crowning Achievements</span>
+              <span>{header.kicker}</span>
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-5xl text-[#141414] font-medium tracking-tight">
-              Best Sellers & Reserve
+              {header.title}
             </h2>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-xs text-[#554E47] font-mono tabular-nums mr-2">
-              0{currentIndex + 1} / 0{bestSellers.length}
+              {String(currentIndex + 1).padStart(2, '0')} / {String(bestSellers.length).padStart(2, '0')}
             </span>
             <button
               onClick={prevSlide}
@@ -56,11 +69,9 @@ export const BestSellersCarousel: React.FC = () => {
           </div>
         </div>
 
-        {/* Featured Spotlight Card */}
         <div className="bg-[#FAF8F5] border border-[#E0D7CC] rounded-xl overflow-hidden shadow-lg grid grid-cols-1 lg:grid-cols-12 items-stretch">
-          {/* Left Column: Big Bottle Image */}
           <div className="lg:col-span-7 relative aspect-[4/3] lg:aspect-auto bg-[#141414] overflow-hidden group">
-            <img
+            <CmsImage
               src={current.image}
               alt={current.name}
               width={720}
@@ -74,7 +85,6 @@ export const BestSellersCarousel: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Scent Narrative & Quick Actions */}
           <div className="lg:col-span-5 p-8 md:p-12 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between text-xs text-[#5E564E] uppercase tracking-wider">
@@ -96,20 +106,25 @@ export const BestSellersCarousel: React.FC = () => {
                 {current.story}
               </p>
 
-              {/* Olfactory pyramid preview */}
               <div className="p-4 bg-[#F2ECE4] rounded-lg border border-[#E2D8CC] space-y-2">
                 <div className="text-[11px] uppercase tracking-wider font-semibold text-[#6E561E]">
                   Olfactory Notes
                 </div>
                 <div className="text-xs text-[#3F3A35] space-y-1">
-                  <p><span className="font-medium text-[#141414]">Top:</span> {current.notes.top.join(', ')}</p>
-                  <p><span className="font-medium text-[#141414]">Heart:</span> {current.notes.heart.join(', ')}</p>
-                  <p><span className="font-medium text-[#141414]">Base:</span> {current.notes.base.join(', ')}</p>
+                  <p>
+                    <span className="font-medium text-[#141414]">Top:</span> {current.notes.top.join(', ')}
+                  </p>
+                  <p>
+                    <span className="font-medium text-[#141414]">Heart:</span>{' '}
+                    {current.notes.heart.join(', ')}
+                  </p>
+                  <p>
+                    <span className="font-medium text-[#141414]">Base:</span> {current.notes.base.join(', ')}
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Price & Actions */}
             <div className="pt-6 border-t border-[#EAE3D9] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-baseline gap-2">
@@ -145,24 +160,22 @@ export const BestSellersCarousel: React.FC = () => {
           </div>
         </div>
 
-        {/* Tasteful Promotional Banner */}
         <div className="mt-12 bg-gradient-to-r from-[#141414] via-[#2A2621] to-[#141414] text-[#FAF8F5] p-6 md:p-8 rounded-lg border border-[#3E3830] flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
           <div className="space-y-1 text-center md:text-left">
             <span className="text-[10px] uppercase tracking-[0.25em] text-[#E6CA85] font-semibold">
-              Seasonal Collector’s Privilege
+              {header.promoEyebrow}
             </span>
             <h3 className="font-serif-luxury text-xl md:text-2xl text-white">
-              Enjoy 15% Off Your First Purchase with Code: <span className="font-mono text-[#E6CA85]">MAISON15</span>
+              {header.promoTitle}{' '}
+              <span className="font-mono text-[#E6CA85]">{header.promoCode}</span>
             </h3>
-            <p className="text-xs text-[#C7BEB2]">
-              Applies automatically at checkout on all orders above ₨ 20,000. Includes complimentary sample vials.
-            </p>
+            <p className="text-xs text-[#C7BEB2]">{header.promoDescription}</p>
           </div>
           <a
-            href="#collection-grid"
+            href={header.promoCtaHref || '#collection-grid'}
             className="px-6 py-3 bg-[#FAF8F5] hover:bg-[#D4AF37] text-[#141414] text-xs font-semibold uppercase tracking-wider transition-colors shrink-0"
           >
-            Claim Offer
+            {header.promoCtaLabel}
           </a>
         </div>
       </div>

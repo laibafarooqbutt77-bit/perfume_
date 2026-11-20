@@ -1,11 +1,19 @@
 import React from 'react';
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, Shield } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, Shield, Lock } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
+import { useSiteContent } from '../context/SiteContentContext';
+import { FragranceCategory } from '../types/perfume';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenAdmin?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   const { setSelectedCategory, setSelectedFamily } = useShop();
+  const { cms } = useSiteContent();
+  const { siteSettings } = cms;
 
-  const handleCategoryClick = (cat: any) => {
+  const handleCategoryClick = (cat: FragranceCategory) => {
     setSelectedCategory(cat);
     setSelectedFamily('All');
     const el = document.getElementById('collection-grid');
@@ -20,21 +28,20 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex flex-col items-start">
               <span className="font-serif-luxury text-2xl tracking-[0.2em] font-medium text-white">
-                MAISON D’OR
+                {siteSettings.siteName}
               </span>
               <span className="text-[9px] uppercase tracking-[0.35em] text-[#A69786] -mt-1 font-sans">
-                Haute Parfumerie · Paris & Lahore
+                {siteSettings.footerTagline}
               </span>
             </div>
 
             <p className="text-xs md:text-sm text-[#A89E92] leading-relaxed max-w-sm font-light">
-              Purveyors of bespoke artisanal fragrances, handcrafted extraits, and vintage agarwood flacons.
-              Engineered with supreme concentration to offer lasting presence and intimate sophistication.
+              {siteSettings.footerDescription}
             </p>
 
             <div className="pt-2 flex items-center gap-3 text-[#A89E92]">
               <a
-                href="https://instagram.com"
+                href={siteSettings.socialLinks.instagram || 'https://instagram.com'}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
@@ -43,7 +50,7 @@ export const Footer: React.FC = () => {
                 <Instagram className="w-4 h-4" />
               </a>
               <a
-                href="https://facebook.com"
+                href={siteSettings.socialLinks.facebook || 'https://facebook.com'}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook"
@@ -52,7 +59,7 @@ export const Footer: React.FC = () => {
                 <Facebook className="w-4 h-4" />
               </a>
               <a
-                href="https://twitter.com"
+                href={siteSettings.socialLinks.twitter || 'https://twitter.com'}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Twitter"
@@ -146,11 +153,18 @@ export const Footer: React.FC = () => {
                   Authenticity Verification Guarantee
                 </span>
               </li>
-              <li>
-                <span className="hover:text-white transition-colors cursor-default">
-                  Returns & Exchange Policy (7 Days)
-                </span>
-              </li>
+              {onOpenAdmin && (
+                <li className="pt-1">
+                  <button
+                    type="button"
+                    onClick={onOpenAdmin}
+                    className="inline-flex items-center gap-1.5 text-[#D4AF37] hover:text-white transition-colors cursor-pointer"
+                  >
+                    <Lock className="w-3 h-3" />
+                    <span>Admin Panel</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -162,19 +176,19 @@ export const Footer: React.FC = () => {
             <div className="space-y-2 text-xs text-[#A89E92]">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
-                <span>Gulberg III, M.M. Alam Road, Lahore, Pakistan</span>
+                <span>{siteSettings.contact.address}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                <span>+92 (042) 3571-0899</span>
+                <span>{siteSettings.contact.phone}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                <span>concierge@maisondorparfum.pk</span>
+                <span>{siteSettings.contact.email}</span>
               </div>
               <div className="flex items-center gap-2 text-[11px] text-[#B8AFA5] pt-2">
                 <Shield className="w-3.5 h-3.5 text-[#66BB6A]" />
-                <span>100% Genuine Ingredients Verified</span>
+                <span>{siteSettings.contact.authenticityBadge}</span>
               </div>
             </div>
           </div>
@@ -182,11 +196,23 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-[#211E1A] flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#B8AFA5] gap-4">
-          <p>© {new Date().getFullYear()} Maison d’Or Parfumerie. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span className="hover:text-white cursor-default">Privacy Policy</span>
-            <span className="hover:text-white cursor-default">Terms of Haute Parfumerie</span>
-            <span className="hover:text-white cursor-default">Security & Authenticity</span>
+          <p>{siteSettings.copyrightText}</p>
+          <div className="flex flex-wrap items-center gap-6">
+            {siteSettings.footerPolicies.map((pol, idx) => (
+              <span key={idx} className="hover:text-white cursor-default">
+                {pol}
+              </span>
+            ))}
+            {onOpenAdmin && (
+              <button
+                type="button"
+                onClick={onOpenAdmin}
+                className="inline-flex items-center gap-1 text-[#A89E92] hover:text-[#D4AF37] transition-colors cursor-pointer"
+              >
+                <Lock className="w-3 h-3" />
+                <span>Admin Panel</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { X, Heart, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
-import { PERFUMES_DATA } from '../data/perfumes';
+import { useSiteContent } from '../context/SiteContentContext';
+import { CmsImage } from './CmsMedia';
 
 export const WishlistDrawer: React.FC = () => {
   const {
@@ -13,10 +14,11 @@ export const WishlistDrawer: React.FC = () => {
     openQuickView,
     formatPrice
   } = useShop();
+  const { cms } = useSiteContent();
 
   if (!wishlistOpen) return null;
 
-  const savedProducts = PERFUMES_DATA.filter(p => wishlist.includes(p.id));
+  const savedProducts = cms.products.filter(p => wishlist.includes(p.id));
 
   const handleMoveToCart = (product: any) => {
     addToCart(product);
@@ -85,7 +87,7 @@ export const WishlistDrawer: React.FC = () => {
                   }}
                   className="w-16 h-20 bg-[#141414] rounded-xs overflow-hidden shrink-0 cursor-pointer"
                 >
-                  <img
+                  <CmsImage
                     src={product.image}
                     alt={product.name}
                     width={64}
